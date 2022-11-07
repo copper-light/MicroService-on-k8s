@@ -18,7 +18,7 @@ spec:
       volumes:
       - name: data-volume # 볼륨명
         persistentVolumeClaim:
-          claimName: mes-share-pvc
+          claimName: nas-shared-pvc
       containers:
       - name: pod1-service  # 컨테이너 이름
         image: "tomcat" # 이미지명 
