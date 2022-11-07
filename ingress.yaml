@@ -1,0 +1,41 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: path-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /pod1
+        pathType: Prefix
+        backend:
+          service:
+            name: pod1
+            port:
+              number: 8080
+      - path: /pod2
+        pathType: Prefix
+        backend:
+          service:
+            name: pod2
+            port:
+              number: 8080
+      - path: /pod3
+        pathType: Prefix
+        backend:
+          service:
+            name: pod3
+            port:
+              number: 8080
+              
+      - path: /pod4
+        pathType: Prefix
+        backend:
+          service:
+            name: pod4
+            port:
+              number: 8080
