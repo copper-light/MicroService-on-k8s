@@ -3,10 +3,10 @@ kind: Ingress
 metadata:
   name: path-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
-    nginx.ingress.kubernetes.io/ssl-redirect: "false"
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
     alb.ingress.kubernetes.io/description: 'alb ingress controller'
+    labels:
+      app: example-alb-ingress
 spec:
   ingressClassName: alb
   rules:
