@@ -3,41 +3,40 @@ kind: Ingress
 metadata:
   name: path-ingress
   annotations:
+    alb.ingress.kubernetes.io/network-type: 'private'
     alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
-    alb.ingress.kubernetes.io/description: 'alb ingress controller'
-    labels:
-      app: example-alb-ingress
+    alb.ingress.kubernetes.io/description: 'tmas ingress controller'
+  labels:
+    app: path-ingress
 spec:
   ingressClassName: alb
-  rules:
+  defaultBackend:
+    service:
+      name: pod1-web
+      port:
+        number: 80
+  rules: 
   - http:
       paths:
-      - path: /pod1
-        pathType: Prefix
-        backend:
-          service:
-            name: pod1
-            port:
-              number: 8080
       - path: /pod2
         pathType: Prefix
         backend:
           service:
-            name: pod2
+            name: pod2-web
             port:
-              number: 8080
+              number: 80
       - path: /pod3
         pathType: Prefix
         backend:
           service:
-            name: pod3
+            name: pod3-web
             port:
-              number: 8080
+              number: 80
               
       - path: /pod4
         pathType: Prefix
         backend:
           service:
-            name: pod4
+            name: pod4-web
             port:
-              number: 8080
+              number: 80
