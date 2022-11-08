@@ -8,4 +8,4 @@ spec:
     - ReadWriteMany # 스토리지 액세스 모드
   resources:
     requests:
-      storage: 500Gi # 용량은 지정되어있지만 실제로 10G 이상 사용 가능
+      storage: 500Gi # NCP 최소용량 500Gi
