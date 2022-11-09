@@ -32,8 +32,8 @@ spec:
         volumeMounts: # 영구 저장할 볼륨 (디렉토리) 설정
         - name: data-volume # 위에서 명시한 볼륨명 지정
           mountPath: /data/mes_file # 서비스에서 필요한 경로 지정
-        imagePullSecrets:            # 해당 images 를 받아올때 사용할 secret ojbect 설정
-        - name: ncp-registry
+      imagePullSecrets:            # 해당 images 를 받아올때 사용할 secret ojbect 설정
+      - name: ncp-registry
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -93,8 +93,8 @@ spec:
         volumeMounts: # 영구 저장할 볼륨 (디렉토리) 설정
         - name: data-volume # 위에서 명시한 볼륨명 지정
           mountPath: /data/mes_file # 서비스에서 필요한 경로 지정
-        imagePullSecrets:            # 해당 images 를 받아올때 사용할 secret ojbect 설정
-        - name: ncp-registry
+      imagePullSecrets:            # 해당 images 를 받아올때 사용할 secret ojbect 설정
+      - name: ncp-registry
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -154,8 +154,8 @@ spec:
         volumeMounts: # 영구 저장할 볼륨 (디렉토리) 설정
         - name: data-volume # 위에서 명시한 볼륨명 지정
           mountPath: /data/mes_file # 서비스에서 필요한 경로 지정
-        imagePullSecrets:            # 해당 images 를 받아올때 사용할 secret ojbect 설정
-        - name: ncp-registry
+      imagePullSecrets:            # 해당 images 를 받아올때 사용할 secret ojbect 설정
+      - name: ncp-registry
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -215,8 +215,8 @@ spec:
         volumeMounts: # 영구 저장할 볼륨 (디렉토리) 설정
         - name: data-volume # 위에서 명시한 볼륨명 지정
           mountPath: /data/mes_file # 서비스에서 필요한 경로 지정
-        imagePullSecrets:            # 해당 images 를 받아올때 사용할 secret ojbect 설정
-        - name: ncp-registry
+      imagePullSecrets:            # 해당 images 를 받아올때 사용할 secret ojbect 설정
+      - name: ncp-registry
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
