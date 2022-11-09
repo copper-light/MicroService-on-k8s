@@ -12,26 +12,26 @@ spec:
   ingressClassName: alb
   defaultBackend:
     service:
-      name: pod1-web
+      name: tmas-sysmng-svc
       port:
-        number: 80
-  rules: 
-  - http:
-      paths:
-      - path: /pod2
-        pathType: Prefix
-        backend:
-          service:
-            name: pod2-web
-            port:
-              number: 80
-      - path: /pod3
-        pathType: Prefix
-        backend:
-          service:
-            name: pod3-web
-            port:
-              number: 80
+        number: 8080
+#   rules: 
+#   - http:
+#       paths:
+#       - path: /pod2
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: tmas-sysmng-svc
+#             port:
+#               number: 80
+#       - path: /pod3
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: tmas-sysmng-svc
+#             port:
+#               number: 80
               
       - path: /pod4
         pathType: Prefix
