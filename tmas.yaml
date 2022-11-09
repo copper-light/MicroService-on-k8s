@@ -1,41 +1,39 @@
 ---
-# service 1
+# tmas-sysmng service
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pod1 # 배포 이름
+  name: tmas-sysmng # 배포 이름
   labels:
-    app: pod1 # 배포 이름
+    app: tmas-sysmng # 배포 이름
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: pod1 # 배포 이름
+      app: tmas-sysmng # 배포 이름
   template:
     metadata:
       labels:
-        app: pod1 # 배포 이름
+        app: tmas-sysmng # 배포 이름
     spec:
       volumes:
       - name: data-volume # 볼륨명
         persistentVolumeClaim:
           claimName: nas-shared-pvc
       containers:
-      - name: pod1-service  # 컨테이너 이름
-        image: nginx # 이미지명 
+      - name: tmas-sysmng # 컨테이너 이름
+        image: impix.kr.ncr.ntruss.com/mes:v0.1 # 이미지명 
         imagePullPolicy: Always
-#        command: ["sleep"]
-#        args: ["infinity"]
         ports: # 컨테이너 내부에서 사용하는 포트 명시
         - name: web
           containerPort: 8080
           protocol: TCP
         volumeMounts: # 영구 저장할 볼륨 (디렉토리) 설정
         - name: data-volume # 위에서 명시한 볼륨명 지정
-          mountPath: /data # 서비스에서 필요한 경로 지정
+          mountPath: /data/mes_file # 서비스에서 필요한 경로 지정
         imagePullSecrets:            # 해당 images 를 받아올때 사용할 secret ojbect 설정
-        - name: iksoon-secret-test 
+        - name: ncp-registry
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -44,61 +42,59 @@ spec:
               - key: app
                 operator: In
                 values:
-                - pod1
-            topologyKey: "kubernetes.io/hostname"
-            
+                - tmas-sysmng
+            topologyKey: "kubernetes.io/hostname"         
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
-  name: pod1-web # 서비스 이름
+  name: tmas-sysmng-svc # 서비스 이름
 spec:
   selector:
-    app: pod1 # 연결할 Deployment의 이름
-  type: NodePort
+    app: tmas-sysmng # 연결할 Deployment의 이름
+  type: ClusterIP
   ports:
   - name: web
-    port: 80
-    targetPort: 80
+    port: 8080
     protocol: TCP
     
+
 ---
-# service 2
+# tmas-womng service
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pod2 # 배포 이름
+  name: tmas-womng # 배포 이름
   labels:
-    app: pod2 # 배포 이름
+    app: tmas-womng # 배포 이름
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: pod2 # 배포 이름
+      app: tmas-womng # 배포 이름
   template:
     metadata:
       labels:
-        app: pod2 # 배포 이름
+        app: tmas-womng # 배포 이름
     spec:
       volumes:
       - name: data-volume # 볼륨명
         persistentVolumeClaim:
           claimName: nas-shared-pvc
       containers:
-      - name: pod2-service  # 컨테이너 이름
-        image: "nginx" # 이미지명 
+      - name: tmas-womng # 컨테이너 이름
+        image: impix.kr.ncr.ntruss.com/mes:v0.1 # 이미지명 
         imagePullPolicy: Always
-#        command: ["sleep"]
-#        args: ["infinity"]
         ports: # 컨테이너 내부에서 사용하는 포트 명시
         - name: web
-          containerPort: 80
+          containerPort: 8080
           protocol: TCP
         volumeMounts: # 영구 저장할 볼륨 (디렉토리) 설정
         - name: data-volume # 위에서 명시한 볼륨명 지정
-          mountPath: /data # 서비스에서 필요한 경로 지정
+          mountPath: /data/mes_file # 서비스에서 필요한 경로 지정
+        imagePullSecrets:            # 해당 images 를 받아올때 사용할 secret ojbect 설정
+        - name: ncp-registry
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -107,61 +103,59 @@ spec:
               - key: app
                 operator: In
                 values:
-                - pod2
-            topologyKey: "kubernetes.io/hostname"
+                - tmas-womng
+            topologyKey: "kubernetes.io/hostname"         
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
-  name: pod2-web # 서비스 이름
+  name: tmas-womng-svc # 서비스 이름
 spec:
   selector:
-    app: pod2 # 연결할 Deployment의 이름
-  type: NodePort
+    app: tmas-womng # 연결할 Deployment의 이름
+  type: ClusterIP
   ports:
   - name: web
-    port: 80
-    targetPort: 80
+    port: 8080
     protocol: TCP
     
+    
 ---
-# service 3
+# tmas-eqmng service
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pod3 # 배포 이름
+  name: tmas-eqmng # 배포 이름
   labels:
-    app: pod3 # 배포 이름
+    app: tmas-eqmng # 배포 이름
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: pod3 # 배포 이름
+      app: tmas-eqmng # 배포 이름
   template:
     metadata:
       labels:
-        app: pod3 # 배포 이름
+        app: tmas-eqmng # 배포 이름
     spec:
       volumes:
       - name: data-volume # 볼륨명
         persistentVolumeClaim:
           claimName: nas-shared-pvc
       containers:
-      - name: pod3-service  # 컨테이너 이름
-        image: "nginx" # 이미지명 
+      - name: tmas-eqmng # 컨테이너 이름
+        image: impix.kr.ncr.ntruss.com/mes:v0.1 # 이미지명 
         imagePullPolicy: Always
-#        command: ["sleep"]
-#        args: ["infinity"]
         ports: # 컨테이너 내부에서 사용하는 포트 명시
         - name: web
-          containerPort: 80
+          containerPort: 8080
           protocol: TCP
         volumeMounts: # 영구 저장할 볼륨 (디렉토리) 설정
         - name: data-volume # 위에서 명시한 볼륨명 지정
-          mountPath: /data # 서비스에서 필요한 경로 지정
+          mountPath: /data/mes_file # 서비스에서 필요한 경로 지정
+        imagePullSecrets:            # 해당 images 를 받아올때 사용할 secret ojbect 설정
+        - name: ncp-registry
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -170,61 +164,59 @@ spec:
               - key: app
                 operator: In
                 values:
-                - pod3
-            topologyKey: "kubernetes.io/hostname"
+                - tmas-eqmng
+            topologyKey: "kubernetes.io/hostname"         
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
-  name: pod3-web # 서비스 이름
+  name: tmas-eqmng-svc # 서비스 이름
 spec:
   selector:
-    app: pod3 # 연결할 Deployment의 이름
-  type: NodePort
+    app: tmas-eqmng # 연결할 Deployment의 이름
+  type: ClusterIP
   ports:
   - name: web
-    targetPort: 80
-    port: 80
+    port: 8080
     protocol: TCP
     
+   
 ---
-# service 4
+# tmas-qcmng service
 ---
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: pod4 # 배포 이름
+  name: tmas-qcmng # 배포 이름
   labels:
-    app: pod4 # 배포 이름
+    app: tmas-qcmng # 배포 이름
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: pod4 # 배포 이름
+      app: tmas-qcmng # 배포 이름
   template:
     metadata:
       labels:
-        app: pod4 # 배포 이름
+        app: tmas-qcmng # 배포 이름
     spec:
       volumes:
       - name: data-volume # 볼륨명
         persistentVolumeClaim:
           claimName: nas-shared-pvc
       containers:
-      - name: pod4-service  # 컨테이너 이름
-        image: "nginx" # 이미지명 
+      - name: tmas-qcmng # 컨테이너 이름
+        image: impix.kr.ncr.ntruss.com/mes:v0.1 # 이미지명 
         imagePullPolicy: Always
-#        command: ["sleep"]
-#        args: ["infinity"]
         ports: # 컨테이너 내부에서 사용하는 포트 명시
         - name: web
-          containerPort: 80
+          containerPort: 8080
           protocol: TCP
         volumeMounts: # 영구 저장할 볼륨 (디렉토리) 설정
         - name: data-volume # 위에서 명시한 볼륨명 지정
-          mountPath: /data # 서비스에서 필요한 경로 지정
+          mountPath: /data/mes_file # 서비스에서 필요한 경로 지정
+        imagePullSecrets:            # 해당 images 를 받아올때 사용할 secret ojbect 설정
+        - name: ncp-registry
       affinity:
         podAntiAffinity:
           requiredDuringSchedulingIgnoredDuringExecution:
@@ -233,20 +225,18 @@ spec:
               - key: app
                 operator: In
                 values:
-                - pod4
-            topologyKey: "kubernetes.io/hostname"
+                - tmas-qcmng
+            topologyKey: "kubernetes.io/hostname"         
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
-  name: pod4-web # 서비스 이름
+  name: tmas-qcmng-svc # 서비스 이름
 spec:
   selector:
-    app: pod4 # 연결할 Deployment의 이름
-  type: NodePort
+    app: tmas-qcmng # 연결할 Deployment의 이름
+  type: ClusterIP
   ports:
   - name: web
-    port: 80
-    targetPort: 80
+    port: 8080
     protocol: TCP
