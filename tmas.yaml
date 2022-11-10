@@ -5,8 +5,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tmas-sysmng # 배포 이름
-  labels:
-    app: tmas-sysmng # 배포 이름
 spec:
   replicas: 2
   selector:
@@ -27,7 +25,7 @@ spec:
         imagePullPolicy: Always
         ports: # 컨테이너 내부에서 사용하는 포트 명시
         - name: web
-          containerPort: 8080
+          containerPort: 80
           protocol: TCP
         volumeMounts: # 영구 저장할 볼륨 (디렉토리) 설정
         - name: data-volume # 위에서 명시한 볼륨명 지정
@@ -49,13 +47,17 @@ apiVersion: v1
 kind: Service
 metadata:
   name: tmas-sysmng-svc # 서비스 이름
+  labels:
+    app: tmas-sysmng-svc
 spec:
+  sessionAffinity: ClientIP
   selector:
     app: tmas-sysmng # 연결할 Deployment의 이름
-  type: ClusterIP
+  type: NodePort
   ports:
-  - name: web
-    port: 8080
+  - name: http
+    port: 80
+    targetPort: 80
     protocol: TCP
     
 
@@ -66,8 +68,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tmas-womng # 배포 이름
-  labels:
-    app: tmas-womng # 배포 이름
 spec:
   replicas: 2
   selector:
@@ -88,7 +88,7 @@ spec:
         imagePullPolicy: Always
         ports: # 컨테이너 내부에서 사용하는 포트 명시
         - name: web
-          containerPort: 8080
+          containerPort: 80
           protocol: TCP
         volumeMounts: # 영구 저장할 볼륨 (디렉토리) 설정
         - name: data-volume # 위에서 명시한 볼륨명 지정
@@ -111,12 +111,13 @@ kind: Service
 metadata:
   name: tmas-womng-svc # 서비스 이름
 spec:
+  sessionAffinity: ClientIP
   selector:
     app: tmas-womng # 연결할 Deployment의 이름
-  type: ClusterIP
+  type: NodePort
   ports:
   - name: web
-    port: 8080
+    port: 80
     protocol: TCP
     
     
@@ -127,8 +128,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tmas-eqmng # 배포 이름
-  labels:
-    app: tmas-eqmng # 배포 이름
 spec:
   replicas: 2
   selector:
@@ -149,7 +148,7 @@ spec:
         imagePullPolicy: Always
         ports: # 컨테이너 내부에서 사용하는 포트 명시
         - name: web
-          containerPort: 8080
+          containerPort: 80
           protocol: TCP
         volumeMounts: # 영구 저장할 볼륨 (디렉토리) 설정
         - name: data-volume # 위에서 명시한 볼륨명 지정
@@ -172,12 +171,13 @@ kind: Service
 metadata:
   name: tmas-eqmng-svc # 서비스 이름
 spec:
+  sessionAffinity: ClientIP
   selector:
     app: tmas-eqmng # 연결할 Deployment의 이름
-  type: ClusterIP
+  type: NodePort
   ports:
   - name: web
-    port: 8080
+    port: 80
     protocol: TCP
     
    
@@ -188,8 +188,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tmas-qcmng # 배포 이름
-  labels:
-    app: tmas-qcmng # 배포 이름
 spec:
   replicas: 2
   selector:
@@ -210,7 +208,7 @@ spec:
         imagePullPolicy: Always
         ports: # 컨테이너 내부에서 사용하는 포트 명시
         - name: web
-          containerPort: 8080
+          containerPort: 80
           protocol: TCP
         volumeMounts: # 영구 저장할 볼륨 (디렉토리) 설정
         - name: data-volume # 위에서 명시한 볼륨명 지정
@@ -233,10 +231,11 @@ kind: Service
 metadata:
   name: tmas-qcmng-svc # 서비스 이름
 spec:
+  sessionAffinity: ClientIP
   selector:
     app: tmas-qcmng # 연결할 Deployment의 이름
-  type: ClusterIP
+  type: NodePort
   ports:
   - name: web
-    port: 8080
+    port: 80
     protocol: TCP

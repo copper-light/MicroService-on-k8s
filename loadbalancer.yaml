@@ -1,0 +1,69 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: tmas-sysmng-svc-lb
+  annotations:
+    service.beta.kubernetes.io/ncloud-load-balancer-internal: "true"
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: tmas-sysmng
+  sessionAffinity: ClientIP
+  type: LoadBalancer
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: tmas-eqmng-svc-lb
+  annotations:
+    service.beta.kubernetes.io/ncloud-load-balancer-internal: "true"
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: tmas-eqmng
+  sessionAffinity: ClientIP
+  type: LoadBalancer
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: tmas-qcmng-svc-lb
+  annotations:
+    service.beta.kubernetes.io/ncloud-load-balancer-internal: "true"
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: tmas-qcmng
+  sessionAffinity: ClientIP
+  type: LoadBalancer
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: tmas-womng-svc-lb
+  annotations:
+    service.beta.kubernetes.io/ncloud-load-balancer-internal: "true"
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: tmas-womng
+  sessionAffinity: ClientIP
+  type: LoadBalancer
