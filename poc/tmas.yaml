@@ -21,7 +21,7 @@ spec:
           claimName: nas-shared-pvc
       containers:
       - name: tmas-sysmng # 컨테이너 이름
-        image: impix.kr.ncr.ntruss.com/tmas-sysmng:latest # 이미지명 
+        image: test:test # 이미지명 
         imagePullPolicy: Always
         ports: # 컨테이너 내부에서 사용하는 포트 명시
         - name: web
@@ -84,7 +84,7 @@ spec:
           claimName: nas-shared-pvc
       containers:
       - name: tmas-womng # 컨테이너 이름
-        image: impix.kr.ncr.ntruss.com/tmas-womng:latest # 이미지명 
+        image: test:latest # 이미지명 
         imagePullPolicy: Always
         ports: # 컨테이너 내부에서 사용하는 포트 명시
         - name: web
@@ -144,7 +144,7 @@ spec:
           claimName: nas-shared-pvc
       containers:
       - name: tmas-eqmng # 컨테이너 이름
-        image: impix.kr.ncr.ntruss.com/tmas-eqmng:latest # 이미지명 
+        image: test:latest # 이미지명 
         imagePullPolicy: Always
         ports: # 컨테이너 내부에서 사용하는 포트 명시
         - name: web
@@ -204,7 +204,7 @@ spec:
           claimName: nas-shared-pvc
       containers:
       - name: tmas-qcmng # 컨테이너 이름
-        image: impix.kr.ncr.ntruss.com/tmas-qcmng:latest # 이미지명 
+        image: test:latest # 이미지명 
         imagePullPolicy: Always
         ports: # 컨테이너 내부에서 사용하는 포트 명시
         - name: web
